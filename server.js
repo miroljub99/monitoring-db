@@ -92,8 +92,15 @@ app.get('/services', (_req, res) => {
     lastActivity = Date.now();
     startSimulator();
     ensureRuntimeDb();
-    const data = readJsonSafe(WORK_PATH);
-    res.json(data);
+
+    const obj = readJsonSafe(WORK_PATH); // { services: [...] } ili []
+    const list = Array.isArray(obj)
+      ? obj
+      : Array.isArray(obj?.services)
+        ? obj.services
+        : [];
+
+    res.json(list); // Vrati niz koji frontend očekuje
   } catch (err) {
     console.error('READ FAIL', err);
     res.status(500).json({ error: 'Failed to read data', detail: String(err) });
