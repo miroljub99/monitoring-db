@@ -73,7 +73,7 @@ function startSimulator() {
     console.log('▶️ Simulator start');
     intervalId = setInterval(() => {
       try { updateData(); } catch (e) { console.error('Update fail', e); ensureRuntimeDb(); }
-      if (Date.now() - lastActivity > 15 * 60 * 1000) stopSimulator();
+      if (Date.now() - lastActivity > 5 * 60 * 1000) stopSimulator();
     }, 10000);
   }
 }
